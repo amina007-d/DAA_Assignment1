@@ -30,7 +30,7 @@ public class DeterministicSelect {
     private int select(int[] arr, int lo, int hi, int k) {
         if (lo == hi) return arr[lo];
 
-        int pivotIndex = median(arr, lo, hi);
+        int pivotIndex = medianOfMedians(arr, lo, hi);
         int pivotNewIndex = ArrayUtil.partition(arr, lo, hi, pivotIndex, comps, moves);
 
         if (k == pivotNewIndex) {
@@ -42,7 +42,7 @@ public class DeterministicSelect {
         }
     }
 
-    private int median(int[] arr, int lo, int hi) {
+    private int medianOfMedians(int[] arr, int lo, int hi) {
         int n = hi - lo + 1;
         if (n <= 5) {
             Arrays.sort(arr, lo, hi + 1);
@@ -58,6 +58,6 @@ public class DeterministicSelect {
             int medianIndex = subLo + (subHi - subLo) / 2;
             ArrayUtil.swap(arr, lo + i, medianIndex, moves);
         }
-        return median(arr, lo, lo + numMedians - 1);
+        return medianOfMedians(arr, lo, lo + numMedians - 1);
     }
 }
