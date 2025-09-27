@@ -10,7 +10,7 @@ import java.util.Random;
 class DeterministicSelectTest {
     @Test
     void testSmallArray() {
-        int[] arr = {5, 8, 6, 4, 2};
+        int[] arr = {7, 2, 9, 4, 1};
         ComparisonCounter comps = new ComparisonCounter();
         MoveCounter moves = new MoveCounter();
         RecursionDepthTracker depth = new RecursionDepthTracker();
