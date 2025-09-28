@@ -17,13 +17,10 @@ public class ArrayUtil {
         }
     }
 
-    public static void shuffle(int[] arr) {
-        for (int i = arr.length - 1; i > 0; i--) {
-            int j = random.nextInt(i + 1);
-            int tmp = arr[i];
-            arr[i] = arr[j];
-            arr[j] = tmp;
-        }
+    public static void swap(int[] arr, int i, int j) {
+        int tmp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = tmp;
     }
 
     public static int partition(int[] arr, int lo, int hi, int pivotIndex,
@@ -41,6 +38,28 @@ public class ArrayUtil {
         }
         swap(arr, storeIndex, hi, moves);
         return storeIndex;
+    }
+
+    public static int partition(int[] arr, int lo, int hi, int pivotIndex) {
+        int pivotValue = arr[pivotIndex];
+        swap(arr, pivotIndex, hi);
+
+        int storeIndex = lo;
+        for (int i = lo; i < hi; i++) {
+            if (arr[i] < pivotValue) {
+                swap(arr, i, storeIndex);
+                storeIndex++;
+            }
+        }
+        swap(arr, storeIndex, hi);
+        return storeIndex;
+    }
+
+    public static void shuffle(int[] arr) {
+        for (int i = arr.length - 1; i > 0; i--) {
+            int j = random.nextInt(i + 1);
+            swap(arr, i, j);
+        }
     }
 
     public static void checkBounds(int[] arr, int lo, int hi) {
