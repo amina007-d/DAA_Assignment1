@@ -21,6 +21,7 @@ public class DeterministicSelect {
     public int select(int[] arr, int k) {
         if (k < 0 || k >= arr.length)
             throw new IllegalArgumentException("k is out of bounds");
+
         depth.enter();
         int result = select(arr, 0, arr.length - 1, k);
         depth.exit();
@@ -28,25 +29,33 @@ public class DeterministicSelect {
     }
 
     private int select(int[] arr, int lo, int hi, int k) {
-        if (lo == hi) return arr[lo];
+        depth.enter();
 
-        int pivotIndex = medianOfMedians(arr, lo, hi);
-        int pivotNewIndex = ArrayUtil.partition(arr, lo, hi, pivotIndex, comps, moves);
-
-        if (k == pivotNewIndex) {
-            return arr[k];
-        } else if (k < pivotNewIndex) {
-            return select(arr, lo, pivotNewIndex - 1, k);
+        int result;
+        if (lo == hi) {
+            result = arr[lo];
         } else {
-            return select(arr, pivotNewIndex + 1, hi, k);
+            int pivotIndex = medianOfMedians(arr, lo, hi);
+            int pivotNewIndex = ArrayUtil.partition(arr, lo, hi, pivotIndex, comps, moves);
+
+            if (k == pivotNewIndex) {
+                result = arr[k];
+            } else if (k < pivotNewIndex) {
+                result = select(arr, lo, pivotNewIndex - 1, k);
+            } else {
+                result = select(arr, pivotNewIndex + 1, hi, k);
+            }
         }
+
+        depth.exit();
+        return result;
     }
 
     private int medianOfMedians(int[] arr, int lo, int hi) {
         int n = hi - lo + 1;
         if (n <= 5) {
             Arrays.sort(arr, lo, hi + 1);
-            moves.add(n * (n - 1)); // грубая оценка перемещений
+            moves.add(n * (n - 1));
             return lo + n / 2;
         }
 
@@ -59,44 +68,5 @@ public class DeterministicSelect {
             ArrayUtil.swap(arr, lo + i, medianIndex, moves);
         }
         return medianOfMedians(arr, lo, lo + numMedians - 1);
-    }
-
-    public static int pureSelect(int[] arr, int k) {
-        if (k < 0 || k >= arr.length)
-            throw new IllegalArgumentException("k is out of bounds");
-        return pureSelect(arr, 0, arr.length - 1, k);
-    }
-
-    private static int pureSelect(int[] arr, int lo, int hi, int k) {
-        if (lo == hi) return arr[lo];
-
-        int pivotIndex = pureMedianOfMedians(arr, lo, hi);
-        int pivotNewIndex = ArrayUtil.partition(arr, lo, hi, pivotIndex); // чистый partition
-
-        if (k == pivotNewIndex) {
-            return arr[k];
-        } else if (k < pivotNewIndex) {
-            return pureSelect(arr, lo, pivotNewIndex - 1, k);
-        } else {
-            return pureSelect(arr, pivotNewIndex + 1, hi, k);
-        }
-    }
-
-    private static int pureMedianOfMedians(int[] arr, int lo, int hi) {
-        int n = hi - lo + 1;
-        if (n <= 5) {
-            Arrays.sort(arr, lo, hi + 1);
-            return lo + n / 2;
-        }
-
-        int numMedians = (int) Math.ceil((double) n / 5);
-        for (int i = 0; i < numMedians; i++) {
-            int subLo = lo + i * 5;
-            int subHi = Math.min(subLo + 4, hi);
-            Arrays.sort(arr, subLo, subHi + 1);
-            int medianIndex = subLo + (subHi - subLo) / 2;
-            ArrayUtil.swap(arr, lo + i, medianIndex); // чистый swap
-        }
-        return pureMedianOfMedians(arr, lo, lo + numMedians - 1);
     }
 }
