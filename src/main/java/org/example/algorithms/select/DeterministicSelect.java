@@ -21,32 +21,41 @@ public class DeterministicSelect {
     public int select(int[] arr, int k) {
         if (k < 0 || k >= arr.length)
             throw new IllegalArgumentException("k is out of bounds");
-        depth.enter();
+
+        depth.enter();  // вход в корень
         int result = select(arr, 0, arr.length - 1, k);
-        depth.exit();
+        depth.exit();   // выход из корня
         return result;
     }
 
     private int select(int[] arr, int lo, int hi, int k) {
-        if (lo == hi) return arr[lo];
+        depth.enter();  // вход в каждый вызов, включая базовый случай
 
-        int pivotIndex = medianOfMedians(arr, lo, hi);
-        int pivotNewIndex = ArrayUtil.partition(arr, lo, hi, pivotIndex, comps, moves);
-
-        if (k == pivotNewIndex) {
-            return arr[k];
-        } else if (k < pivotNewIndex) {
-            return select(arr, lo, pivotNewIndex - 1, k);
+        int result;
+        if (lo == hi) {
+            result = arr[lo];
         } else {
-            return select(arr, pivotNewIndex + 1, hi, k);
+            int pivotIndex = medianOfMedians(arr, lo, hi);
+            int pivotNewIndex = ArrayUtil.partition(arr, lo, hi, pivotIndex, comps, moves);
+
+            if (k == pivotNewIndex) {
+                result = arr[k];
+            } else if (k < pivotNewIndex) {
+                result = select(arr, lo, pivotNewIndex - 1, k);
+            } else {
+                result = select(arr, pivotNewIndex + 1, hi, k);
+            }
         }
+
+        depth.exit();  // выход из вызова
+        return result;
     }
 
     private int medianOfMedians(int[] arr, int lo, int hi) {
         int n = hi - lo + 1;
         if (n <= 5) {
             Arrays.sort(arr, lo, hi + 1);
-            moves.add(n * (n - 1)); // грубая оценка
+            moves.add(n * (n - 1)); // грубая оценка для подсчета перестановок
             return lo + n / 2;
         }
 
