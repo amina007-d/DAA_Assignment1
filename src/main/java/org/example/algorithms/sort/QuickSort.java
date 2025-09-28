@@ -3,6 +3,7 @@ package org.example.algorithms.sort;
 import org.example.metrics.ComparisonCounter;
 import org.example.metrics.MoveCounter;
 import org.example.metrics.RecursionDepthTracker;
+import org.example.algorithms.util.ArrayUtil;
 
 import java.util.Random;
 
@@ -29,42 +30,17 @@ public class QuickSort {
             depth.enter();
 
             int pivotIndex = lo + random.nextInt(hi - lo + 1);
-            int pivotNewIndex = partition(arr, lo, hi, pivotIndex);
+            int pivotNewIndex = ArrayUtil.partition(arr, lo, hi, pivotIndex, comps, moves);
 
-            // рекурсия идёт в меньшую часть
             if (pivotNewIndex - lo < hi - pivotNewIndex) {
                 quicksort(arr, lo, pivotNewIndex - 1);
-                lo = pivotNewIndex + 1; // хвост обрабатываем итеративно
+                lo = pivotNewIndex + 1;
             } else {
                 quicksort(arr, pivotNewIndex + 1, hi);
                 hi = pivotNewIndex - 1;
             }
 
             depth.exit();
-        }
-    }
-
-    private int partition(int[] arr, int lo, int hi, int pivotIndex) {
-        int pivotValue = arr[pivotIndex];
-        swap(arr, pivotIndex, hi);
-        int storeIndex = lo;
-        for (int i = lo; i < hi; i++) {
-            comps.increment();
-            if (arr[i] < pivotValue) {
-                swap(arr, i, storeIndex);
-                storeIndex++;
-            }
-        }
-        swap(arr, storeIndex, hi);
-        return storeIndex;
-    }
-
-    private void swap(int[] arr, int i, int j) {
-        if (i != j) {
-            int tmp = arr[i];
-            arr[i] = arr[j];
-            arr[j] = tmp;
-            moves.add(3);
         }
     }
 }
