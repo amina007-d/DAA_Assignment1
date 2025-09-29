@@ -19,13 +19,19 @@ public class DeterministicSelect {
     }
 
     public int select(int[] arr, int k) {
-        if (k < 0 || k >= arr.length)
+        if (arr == null || arr.length == 0) {
+            throw new IllegalArgumentException("array is empty");
+        }
+        if (k < 0 || k >= arr.length) {
             throw new IllegalArgumentException("k is out of bounds");
+        }
+
         depth.enter();
         int result = select(arr, 0, arr.length - 1, k);
         depth.exit();
         return result;
     }
+
 
     private int select(int[] arr, int lo, int hi, int k) {
         if (lo == hi) return arr[lo];

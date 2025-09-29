@@ -22,8 +22,12 @@ public class QuickSort {
     }
 
     public void sort(int[] arr) {
+        if (arr == null || arr.length <= 1) {
+            return;
+        }
         quicksort(arr, 0, arr.length - 1);
     }
+
 
     private void quicksort(int[] arr, int lo, int hi) {
         while (lo < hi) {
