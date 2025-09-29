@@ -40,7 +40,51 @@ class QuickSortTest {
         sorter.sort(arr);
 
         assertArrayEquals(expected, arr);
-
         assertTrue(depth.getMax() < n / 2, "Recursion depth too high");
+    }
+
+    @Test
+    void testEmptyArray() {
+        int[] arr = {};
+        QuickSort sorter = new QuickSort(
+                new ComparisonCounter(), new MoveCounter(), new RecursionDepthTracker());
+        sorter.sort(arr);
+        assertArrayEquals(new int[]{}, arr);
+    }
+
+    @Test
+    void testSingleElementArray() {
+        int[] arr = {42};
+        QuickSort sorter = new QuickSort(
+                new ComparisonCounter(), new MoveCounter(), new RecursionDepthTracker());
+        sorter.sort(arr);
+        assertArrayEquals(new int[]{42}, arr);
+    }
+
+    @Test
+    void testAllEqualElements() {
+        int[] arr = {7, 7, 7, 7, 7};
+        QuickSort sorter = new QuickSort(
+                new ComparisonCounter(), new MoveCounter(), new RecursionDepthTracker());
+        sorter.sort(arr);
+        assertArrayEquals(new int[]{7, 7, 7, 7, 7}, arr);
+    }
+
+    @Test
+    void testAlreadySortedArray() {
+        int[] arr = {1, 2, 3, 4, 5};
+        QuickSort sorter = new QuickSort(
+                new ComparisonCounter(), new MoveCounter(), new RecursionDepthTracker());
+        sorter.sort(arr);
+        assertArrayEquals(new int[]{1, 2, 3, 4, 5}, arr);
+    }
+
+    @Test
+    void testReverseSortedArray() {
+        int[] arr = {9, 7, 5, 3, 1};
+        QuickSort sorter = new QuickSort(
+                new ComparisonCounter(), new MoveCounter(), new RecursionDepthTracker());
+        sorter.sort(arr);
+        assertArrayEquals(new int[]{1, 3, 5, 7, 9}, arr);
     }
 }

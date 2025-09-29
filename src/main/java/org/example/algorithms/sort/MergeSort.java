@@ -20,10 +20,15 @@ public class MergeSort {
         this.depth = depth;
     }
 
+
     public void sort(int[] arr) {
+        if (arr == null || arr.length <= 1) {
+            return;
+        }
         int[] aux = new int[arr.length]; // единый буфер
         sort(arr, aux, 0, arr.length - 1);
     }
+
 
     private void sort(int[] arr, int[] aux, int lo, int hi) {
         if (hi - lo + 1 <= cutoff) {
