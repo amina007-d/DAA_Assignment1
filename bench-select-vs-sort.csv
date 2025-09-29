@@ -1,7 +1,0 @@
-"Benchmark","Mode","Threads","Samples","Score","Score Error (99,9%)","Unit","Param: n"
-"org.example.bench.SelectBench.testDeterministicSelect","avgt",1,10,"0,007564","0,000468","ms/op",1000
-"org.example.bench.SelectBench.testDeterministicSelect","avgt",1,10,"0,076034","0,007788","ms/op",5000
-"org.example.bench.SelectBench.testDeterministicSelect","avgt",1,10,"0,173947","0,006001","ms/op",10000
-"org.example.bench.SelectBench.testSortAndPick","avgt",1,10,"0,009403","0,000652","ms/op",1000
-"org.example.bench.SelectBench.testSortAndPick","avgt",1,10,"0,150745","0,007146","ms/op",5000
-"org.example.bench.SelectBench.testSortAndPick","avgt",1,10,"0,373341","0,014261","ms/op",10000
