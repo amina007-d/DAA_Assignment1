@@ -96,7 +96,7 @@ The goals were:
 ---
 
 ## 5. Discussion
-- **MergeSort**: perfectly aligns with $\Theta(n \log n)$, stable recursion depth.
+- **MergeSort**: perfectly aligns with $\Theta(n \log n)$,  stable recursion depth.
 - **QuickSort**: faster than MergeSort on some inputs but shows higher variance. Depth ≈ $2\log n$.
 - **Select**: linear scaling, recursion depth practically constant. JMH confirms **2× faster than Arrays.sort** for selection tasks.
 - **Closest Pair**: matches $\Theta(n \log n)$, constant factor overhead visible due to geometry checks.
