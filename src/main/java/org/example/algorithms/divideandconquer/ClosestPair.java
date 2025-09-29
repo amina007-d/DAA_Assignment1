@@ -16,10 +16,15 @@ public class ClosestPair {
     }
 
     public static double closestPair(Point[] points) {
+        if (points == null || points.length < 2) {
+            throw new IllegalArgumentException("Need at least two points");
+        }
+
         Point[] sortedByX = points.clone();
         Arrays.sort(sortedByX, Comparator.comparingDouble(p -> p.x));
         return closestRecursive(sortedByX);
     }
+
 
     private static double closestRecursive(Point[] points) {
         int n = points.length;
