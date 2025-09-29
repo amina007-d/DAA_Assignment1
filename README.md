@@ -82,16 +82,16 @@ The goals were:
 ## 4. Plots
 
 ### 4.1 Time vs n
-![Graph 1](plots\graph_1.png)
+![Graph 1](plots/graph_1.png)
 
 ### 4.2 Recursion Depth vs n
-![Graph 2](plots\graph_2.png)
+![Graph 2](plots/graph_2.png)
 
 ### 4.3 Comparisons vs n
-![Graph 3](plots\graph_3.png)
+![Graph 3](plots/graph_3.png)
 
 ### 4.4 Select Benchmark (Select vs Arrays.sort)
-![Graph 4](plots\graph_4.png)
+![Graph 4](plots/graph_4.png)
 
 ---
 
